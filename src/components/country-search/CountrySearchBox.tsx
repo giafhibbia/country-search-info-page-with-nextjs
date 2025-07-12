@@ -29,7 +29,7 @@ export default function CountrySearchBox() {
     }
 
     try {
-      const res = await fetch(`https://restcountries.com/v3.1/name/${value}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/name/${value}?fullText=true`);
       if (!res.ok) throw new Error();
       const data = await res.json();
       setSuggestions(data.slice(0, 5));
