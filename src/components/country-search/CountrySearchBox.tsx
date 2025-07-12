@@ -5,28 +5,63 @@ import InvalidState from "./InvalidState";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 
+/**
+ * Type definition for Country object received from API.
+ */
 export type Country = {
   name: { common: string };
   cca2: string;
 };
 
+/**
+ * CountrySearchBox component implements a controlled input search box
+ * with autocomplete suggestions based on exact country name matching.
+ *
+ * Features:
+ * - Tracks input state and fetches suggestions from REST Countries API.
+ * - Handles debouncing race conditions by tracking latest input with useRef.
+ * - Supports keyboard navigation through suggestions (ArrowUp, ArrowDown, Enter).
+ * - Provides a clickable search icon to select first suggestion or fallback input.
+ * - Shows an error state when no country matches the search query.
+ * - Navigates to a dynamic country detail page on selection.
+ */
 export default function CountrySearchBox() {
+  // Search input state controlled by user input
   const [query, setQuery] = useState("");
+
+  // List of country suggestions based on current input query
   const [suggestions, setSuggestions] = useState<Country[]>([]);
+
+  // Boolean flag to indicate no matching results found
   const [notFound, setNotFound] = useState(false);
+
+  // Tracks the currently active suggestion index for keyboard navigation
   const [activeIndex, setActiveIndex] = useState(-1);
+
+  // Next.js router instance for navigation
   const router = useRouter();
 
-  // Track input terakhir agar response lama tidak overwrite
+  // Ref to store the latest query string to prevent race conditions
   const latestQuery = useRef("");
 
+  /**
+   * Utility function to convert string to Title Case.
+   * Used as a fallback for manual input on search icon click.
+   */
   function toTitleCase(str: string) {
     return str.replace(/\w\S*/g, txt =>
       txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     );
   }
 
-  // Fetch SUGGESTION exact match (fullText)
+  /**
+   * Handles input change events on the search field.
+   * Fetches country suggestions from REST Countries API using fullText=true for exact matches.
+   * Updates suggestions only if response corresponds to the latest input query.
+   * Handles error state if no results found.
+   *
+   * @param e React.ChangeEvent<HTMLInputElement>
+   */
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
@@ -43,17 +78,17 @@ export default function CountrySearchBox() {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/name/${encodeURIComponent(value)}?fullText=true`
       );
-      // Catatan: fullText=true akan error 404 kalau tidak cocok
+      // fullText=true expects exact matches, API returns 404 if none found
       if (!res.ok) throw new Error();
       const data = await res.json();
 
-      // Update hanya jika response untuk input terbaru
+      // Update suggestions only if response matches the latest query to avoid race conditions
       if (latestQuery.current === value) {
-        setSuggestions(data.slice(0, 5));
+        setSuggestions(data.slice(0, 5)); // Limit suggestions to top 5
         setNotFound(data.length === 0);
       }
     } catch {
-      // Update hanya jika response untuk input terbaru
+      // Show error only if this corresponds to latest input
       if (latestQuery.current === value) {
         setSuggestions([]);
         setNotFound(true);
@@ -61,14 +96,28 @@ export default function CountrySearchBox() {
     }
   };
 
+  /**
+   * Handles selection of a suggestion by name.
+   * Updates query input, clears suggestions, and navigates to the country detail page.
+   *
+   * @param name string - country name selected
+   */
   const handleSelect = (name: string) => {
     setQuery(name);
     setSuggestions([]);
     router.push(`/country/${encodeURIComponent(name)}`);
   };
 
+  /**
+   * Handles keyboard navigation within suggestions.
+   * ArrowDown/ArrowUp changes activeIndex cyclically.
+   * Enter triggers selection of active suggestion.
+   *
+   * @param e React.KeyboardEvent<HTMLInputElement>
+   */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (suggestions.length === 0) return;
+
     if (e.key === "ArrowDown") {
       setActiveIndex((prev) => (prev + 1) % suggestions.length);
       e.preventDefault();
@@ -81,6 +130,11 @@ export default function CountrySearchBox() {
     }
   };
 
+  /**
+   * Handles click on the search icon.
+   * If suggestions exist, selects the first suggestion.
+   * Otherwise, uses the input query with title casing as fallback.
+   */
   const handleIconClick = () => {
     if (suggestions.length > 0) {
       handleSelect(suggestions[0].name.common);
@@ -111,7 +165,7 @@ export default function CountrySearchBox() {
           <Search size={20} />
         </button>
 
-        {/* Suggestion dan Error */}
+        {/* Render suggestion list if available */}
         {suggestions.length > 0 && (
           <SuggestionList
             suggestions={suggestions}
@@ -120,6 +174,7 @@ export default function CountrySearchBox() {
             setActiveIndex={setActiveIndex}
           />
         )}
+        {/* Render error state if no matching country found */}
         {notFound && <InvalidState />}
       </div>
     </div>
