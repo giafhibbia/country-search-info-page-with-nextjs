@@ -24,3 +24,64 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+
+
+/* SF Pro Text fallback, mirip Inter & Segoe UI */
+@font-face {
+  font-family: "SF Pro Text";
+  src: local("SF Pro Text"), local("Inter"), local("Segoe UI"), local("Arial"), local("sans-serif");
+  font-weight: 400 700;
+}
+
+.country-title {
+  font-family: "SF Pro Text", "Inter", "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0;
+  width: 203px;
+  height: 21px;
+  text-align: center;
+  margin: 0 auto 32px auto;
+}
+
+@media (min-width: 768px) {
+  .country-title {
+    font-size: 32px;
+    height: 38px;
+  }
+}
+
+.country-input {
+  width: 100%;
+  max-width: 420px;
+  height: 40px;
+  border: 0.5px solid #E8E8E8;
+  border-radius: 8px;
+  padding: 0 40px 0 16px;
+  font-family: "SF Pro Text", "Inter", "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 100%;
+  color: #232323;
+  background: #fff;
+  outline: none;
+  box-shadow: none;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.country-input::placeholder {
+  color: #B9B9B9;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .country-input {
+    height: 48px;
+    font-size: 20px;
+  }
+}
