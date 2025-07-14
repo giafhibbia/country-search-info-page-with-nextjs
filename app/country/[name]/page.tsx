@@ -1,6 +1,6 @@
 import React from "react";
 import BackButton from "@/components/BackButton";
-import globeVector from "../../../../public/globe-vector.png";
+import globeVector from "../../../public/globe-vector.png";
 import InteractiveLink from "@/components/InteractiveLink";
 import Image from "next/image";
 
