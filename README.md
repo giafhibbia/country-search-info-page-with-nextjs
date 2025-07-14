@@ -1,40 +1,122 @@
-# rest-countries-search
-Submission for Orderfaz Senior Fullstack Developer Test — Country Search Engine app using Next.js, TypeScript, and REST Countries API
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# \# Country Search Info Page
 
-First, run the development server:
+A modern, responsive country search and info app built with \*\*Next.js 15\*\*, \*\*React 19\*\*, \*\*TypeScript\*\*, and \*\*Tailwind CSS\*\*.
 
-```bash
+\----------------------------------------------------------------------------------------------------
+
+\## Features
+
+\- 🔍 Search for countries and view detailed info
+
+\- 🌍 Responsive design (desktop & mobile)
+
+\- 🌐 Built with Next.js App Router
+
+\- 🎨 Styled with Tailwind CSS
+
+\- 🦄 FontAwesome & Lucide Icons
+
+\- 🌱 TypeScript support
+
+\- 🛡️ Eslint & code quality tools
+
+\------------------------------------------------------------------------------------------------------
+
+\## Tech Stack
+
+\- \*\*Framework:\*\* \[Next.js 15\](https://nextjs.org/)
+
+\- \*\*Language:\*\* TypeScript
+
+\- \*\*Styling:\*\* Tailwind CSS, PostCSS
+
+\- \*\*Icons:\*\* Fortawesome, Lucide React
+
+\- \*\*Linting:\*\* ESLint (with Next.js, Tailwind CSS, TypeScript configs)
+
+\## Getting Started (Local Development)
+
+\### 1. Clone the repository
+
+\`\`\`bash
+
+git clone https://github.com/giafhibbia/country-search-info-page-with-nextjs.git
+
+cd country-search-info-page-with-nextjs
+
+**2\. Install dependencies**
+
+bash
+
+CopyEdit
+
+npm install
+
+\# or
+
+yarn install
+
+**3\. Setup environment variables**
+
+Buat file .env.local jika diperlukan (lihat contoh .env.example bila ada).
+
+**4\. Run the development server**
+
+bash
+
+CopyEdit
+
 npm run dev
-# or
+
+\# or
+
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App will be running at [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* * *
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Deploy to Vercel**
 
-## Learn More
+1.  **Login ke [Vercel](https://vercel.com/) dan klik "New Project"**
+2.  **Connect ke repo GitHub kamu:**  
+    Pilih repo country-search-info-page-with-nextjs yang sudah kamu push.
+3.  **Set environment variables** jika perlu (pindahkan dari .env.local ke dashboard Vercel > Project > Settings > Environment Variables).
+4.  **Deploy**  
+    Klik "Deploy" dan tunggu proses build selesai.
 
-To learn more about Next.js, take a look at the following resources:
+**Project akan otomatis ter-deploy ke URL seperti:**  
+https://country-search-info-page-with-nextjs.vercel.app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Manual deploy (jika ingin via CLI):**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+bash
 
-## Deploy on Vercel
+CopyEdit
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+npm i -g vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+vercel
 
+Ikuti petunjuk (login, pilih project, dsb).  
+Untuk update berikutnya, cukup jalankan vercel --prod.
+
+* * *
+
+**Useful Scripts**
+
+| Script | Description |
+| --- | --- |
+| npm run dev | Start development server |
+| npm run build | Build for production |
+| npm run lint | Run ESLint |
+| npm run start | Start production server |
+
+* * *
+
+**License**
+
+MIT  
+(C) 2024 giafhibbia
